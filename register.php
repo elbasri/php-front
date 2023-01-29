@@ -1,3 +1,13 @@
+<?php
+require 'config/db.php';
+require 'includes/users.php';
+require 'includes/functions.php';
+if(isset($_POST['submit'])){
+    Register();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,34 +46,33 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" action="register.php" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" name="prenom" class="form-control form-control-user" id="prenom"
                                             placeholder="First Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" name="nom" class="form-control form-control-user" id="nom"
                                             placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" name="email" class="form-control form-control-user" id="email"
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" name="mdp" class="form-control form-control-user"
+                                            id="mdp" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input type="password" name="mdptest" class="form-control form-control-user"
+                                            id="mdptest" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </a>
+                                <input  type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Register Account"> 
+                                          
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
