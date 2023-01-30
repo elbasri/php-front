@@ -1,12 +1,26 @@
 <?php
 require 'config/db.php';
 require 'includes/users.php';
-$Users = (new App\Classes\Users())->getAll($pdo);
+
+
+if(isset($_SESSION['user_id'])){
+    $User = $_SESSION['user_id'];
+    $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
+    $user = (object) $user;
+
+    
+
+
+} else {
+    header("Location: login.php");
+    exit;
+}
+
+
+
 ?>
 
-<?php foreach($Users as $user){ ?>
-    <h1><?=$user["email"]?></h1>
-<?php } ?>
+
 
 
 <!DOCTYPE html>
@@ -58,6 +72,48 @@ $Users = (new App\Classes\Users())->getAll($pdo);
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Patients</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des patients</a>
+                        <a class="collapse-item" href="cards.html">Gestion des patients</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefive"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>RDV</span>
+                </a>
+                <div id="collapsefive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des Rendez-vous</a>
+                        <a class="collapse-item" href="cards.html">Gestion des RDV</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Médicaments</span>
+                </a>
+                <div id="collapsefour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des Médicaments</a>
+                        <a class="collapse-item" href="cards.html">Gestion des Médicaments</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -342,7 +398,7 @@ $Users = (new App\Classes\Users())->getAll($pdo);
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$user->nom?> <?=$user->prenom?> </span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -362,8 +418,8 @@ $Users = (new App\Classes\Users())->getAll($pdo);
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
+                                    <i  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
@@ -743,8 +799,8 @@ $Users = (new App\Classes\Users())->getAll($pdo);
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                </div>l
             </div>
         </div>
     </div>
