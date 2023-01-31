@@ -68,6 +68,100 @@ function Register()
     }
 }
 
+function update()
+{
+    
+    
+    $email = $_POST['email'];       
+    $nom=$_POST['nom'] ;
+    $prenom= $_POST['prenom'];
+    $poids = $_POST['poids'];       
+    $taille=$_POST['taille'] ;
+    $cin= $_POST['cin'];         
+    $Users_targett = $_SESSION['user_id_target'];
+    $Users_target = (new App\Classes\Users())->edit_patient($GLOBALS['pdo'],$Users_targett,$email,$nom,$prenom,$poids,$taille,$cin);          
+    //$testreturn = $user->insert($GLOBALS['pdo']);
+    if($Users_target)
+    {
+                
+        header('Location: gestionpatients.php');
+        exit;
+
+    }
+    else
+    {
+        header('Location: Modifier_user.php');
+        exit;
+
+    }
+           
+        
+    
+}
+function update_docteur()
+{
+    
+    
+    $email = $_POST['email'];       
+    $nom=$_POST['nom'] ;
+    $prenom= $_POST['prenom'];
+    $poids = $_POST['poids'];       
+    $taille=$_POST['taille'] ;
+    $cin= $_POST['cin'];
+    $salaire = $_POST['salaire'];      
+    $Users_targett = $_SESSION['user_id_target'];
+    $Users_target = (new App\Classes\Users())->edit_patient($GLOBALS['pdo'],$Users_targett,$email,$nom,$prenom,$poids,$taille,$cin,$salaire);          
+    //$testreturn = $user->insert($GLOBALS['pdo']);
+    if($Users_target)
+    {
+                
+        header('Location: gestiondocterurs.php');
+        exit;
+
+    }
+    else
+    {
+        header('Location: Modifier_user_docteur.php');
+        exit;
+
+    }
+           
+        
+    
+}
+function update_user()
+{
+    
+    
+    $email = $_POST['email'];       
+    $nom=$_POST['nom'] ;
+    $prenom= $_POST['prenom'];
+    $poids = $_POST['poids'];       
+    $taille=$_POST['taille'] ;
+    $cin= $_POST['cin'];
+    $salaire = $_POST['salaire'];
+    $role = $_POST['role'];
+
+    $Users_targett = $_SESSION['user_id_target'];
+    $Users_target = (new App\Classes\Users())->edit_user($GLOBALS['pdo'],$Users_targett,$email,$nom,$prenom,$poids,$taille,$cin,$salaire,$role);          
+    //$testreturn = $user->insert($GLOBALS['pdo']);
+    if($Users_target)
+    {
+                
+        header('Location: gestionusers.php');
+        exit;
+
+    }
+    else
+    {
+        header('Location: Modifier_user_user.php');
+        exit;
+
+    }
+           
+        
+    
+}
 
 
 
