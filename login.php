@@ -60,6 +60,10 @@ if(isset($_POST['submit'])){
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" name="email" aria-describedby="emailHelp"
                                                 placeholder="Entrer votre adresse e-mail ..">
+                                                <?php if(isset($_GET["error"])&&isset($_GET["email"])){?>
+                                                <?=$_GET["error"]?>
+                                                <?php } ?>
+                                                
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="mdp" class="form-control form-control-user"

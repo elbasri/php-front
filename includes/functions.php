@@ -5,15 +5,15 @@ require 'config/db.php';
 function logincheck()
 {
     
-    if (isset($_POST['email']) && isset($_POST['mdp']) && $_POST['email']=!"" && $_POST['mdp']=!"") {
+    if (isset($_POST['email']) && isset($_POST['mdp']) && $_POST['email']!="" && $_POST['mdp']!="") {
 
         $email = $_POST['email'];
         $mdp = $_POST['mdp'];
-        echo $_POST['email'];
+        //echo $_POST['mdp'];
         if (strpos($email,"@")==false )
         {
             echo 'EMAIL INVALIDE';
-            exit;
+            header('Location: login.php?error=email unvalid&email=true');
         }
         $user = (new App\Classes\Users())->login($GLOBALS['pdo'],$email,$mdp);
     
