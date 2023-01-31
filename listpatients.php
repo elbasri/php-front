@@ -2,12 +2,20 @@
 <?php   
 require 'config/db.php';
 require 'includes/users.php';
+require 'includes/functions.php';
+
 $Users = (new App\Classes\Users())->getAllofRole($pdo,"patient");
 
 if(isset($_SESSION['user_id'])){
+
+    echo '<pre>';
+    var_dump(listrdv('https://clinic.maktab.ma/api/v1/search_read?model=hms.appointment&with_context=%7B%7D&with_company=1'));
+    echo '</pre>';
     $User = $_SESSION['user_id'];
     $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
     $user = (object) $user;
+    exit;
+    
 
     
 

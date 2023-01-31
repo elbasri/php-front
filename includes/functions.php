@@ -20,6 +20,11 @@ function logincheck()
         if ($user != null ) {
             session_start();
             $_SESSION['user_id'] = $user;
+            $User = $_SESSION['user_id'];
+            $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
+            $user = (object) $user;
+            $_SESSION['user_role'] = $user->role; 
+            $_SESSION['token'] = authapi();
             header('Location: index.php');
             exit;
         } 
@@ -168,7 +173,36 @@ function update_user()
         
     
 }
+function authapi($user=null,$mdp=null)
+{
+    $token= file_get_contents("https://clinic.maktab.ma/api/user/get_token?login=admin&password=secret32110");
+    return json_decode($token);
 
+}
+function listrdv($url)
+{
+  if( $_SESSION['user_role']=='admin')
+  {
+    $opts = [
+        "http" => [
+        "method" => "GET",
+        "header" => "accept: application/json\r\n" .
+        "Authorization: Basic YWRtaW46c2VjcmV0MzIxMTA=\r\n"
+        ]
+    ];
+    
+    $context = stream_context_create($opts);
+    
+    $file = file_get_contents($url, false, $context);
+    return json_decode($file) ;
+
+  }
+  else
+  {
+    
+  }
+  return false;
+}
 
 
 
