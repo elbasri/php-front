@@ -2,7 +2,7 @@
 <?php   
 require 'config/db.php';
 require 'includes/users.php';
-$Users = (new App\Classes\Users())->getAll($pdo);
+$Users = (new App\Classes\Users())->getAllofRole($pdo,"patient");
 
 if(isset($_SESSION['user_id'])){
     $User = $_SESSION['user_id'];
@@ -18,6 +18,19 @@ if(isset($_SESSION['user_id'])){
 }
 
 
+if($user->role=='patient')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+    echo '<style>#medspanel { display: none; }</style>';
+    echo '<style>#patientpanel { display: none; }</style>';
+}
+else if($user->role=='docteur')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +44,7 @@ if(isset($_SESSION['user_id'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>VitalCare-Website</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -55,117 +68,111 @@ if(isset($_SESSION['user_id'])){
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">VitalCare <sup>2</sup></div>
             </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php">
+                    <div class="sidebar-heading">
+                        Accueil
+                    </div>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        Services
+                    </div>
+            <li class="nav-item" id="patientpanel" >
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThre"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Patients</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseThre" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des patients</a>
+                        <a class="collapse-item" href="gestionpatients.php">Gestion des patients</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
+        </li>
+        <li class="nav-item" id="docteurpanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Docteurs</span>
+            </a>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listdocteurs.php">Liste des Docteurs</a>
+                    <a class="collapse-item" href="gestiondocteurs.php">Gestion des Docteurs</a>
                 </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
+        </li>
+        <li class="nav-item" id="userpanel" >
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThr"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Utilisateurs</span>
+            </a>
+            <div id="collapseThr" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listusers.php">Liste des users</a>
+                    <a class="collapse-item" href="gestionusers.php">Gestion des users</a>
                 </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
+            </div>
+        </li>
+        <li class="nav-item" id="rdvpanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefive"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>RDV</span>
+            </a>
+            <div id="collapsefive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listpatients.php">Liste des Rendez-vous</a>
+                    <a class="collapse-item" href="cards.html">Gestion des RDV</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item" id="medspanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Médicaments</span>
+            </a>
+            <div id="collapsefour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listpatients.php">Liste des Médicaments</a>
+                    <a class="collapse-item" href="cards.html">Gestion des Médicaments</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider">
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        
+
+        
 
         </ul>
         <!-- End of Sidebar -->
@@ -402,6 +409,10 @@ if(isset($_SESSION['user_id'])){
                                             <th>Nom</th>
                                             <th>Prenom</th>
                                             <th>Email</th>
+                                            <th>CIN</th>
+                                            <th>Poids</th>
+                                            <th>Taille</th>
+                                            
                                             
                                         </tr>
                                     </thead>
@@ -411,6 +422,9 @@ if(isset($_SESSION['user_id'])){
                                             <th>Nom</th>
                                             <th>Prenom</th>
                                             <th>Email</th>
+                                            <th>CIN</th>
+                                            <th>Poids</th>
+                                            <th>Taille</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -420,6 +434,9 @@ if(isset($_SESSION['user_id'])){
                                             <td><?=$user["nom"]?></td>
                                             <td><?=$user["prenom"]?></td>
                                             <td><?=$user["email"]?></td>
+                                            <td><?=$user["CIN"]?></td>
+                                            <td><?=$user["poids"]?></td>
+                                            <td><?=$user["height"]?></td>
                                             </tr>
                                     <?php } ?>
                                         
@@ -473,8 +490,8 @@ if(isset($_SESSION['user_id'])){
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                </div>l
             </div>
         </div>
     </div>

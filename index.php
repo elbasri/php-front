@@ -15,7 +15,19 @@ if(isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit;
 }
-
+if($user->role=='patient')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+    echo '<style>#medspanel { display: none; }</style>';
+    echo '<style>#patientpanel { display: none; }</style>';
+}
+else if($user->role=='docteur')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+    
+}
 
 
 ?>
@@ -56,7 +68,7 @@ if(isset($_SESSION['user_id'])){
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -68,12 +80,12 @@ if(isset($_SESSION['user_id'])){
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item active" >
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id='patientpanel'>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -82,12 +94,40 @@ if(isset($_SESSION['user_id'])){
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestion</h6>
-                        <a class="collapse-item" href="listpatients.php">Liste des patients</a>
-                        <a class="collapse-item" href="cards.html">Gestion des patients</a>
+                        <a class="collapse-item" href="listdocteurs.php">Liste des patients</a>
+                        <a class="collapse-item" href="gestiondocteurs.php">Gestion des patients</a>
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id='docteurpanel'>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThr"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Docteurs</span>
+                </a>
+                <div id="collapseThr" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des Docteurs</a>
+                        <a class="collapse-item" href="cards.html">Gestion des Docteurs</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item" id="userpanel">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThre"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Utilisateurs</span>
+                </a>
+                <div id="collapseThre" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listusers.php">Liste des users</a>
+                        <a class="collapse-item" href="getionusers.php">Gestion des users</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item" id='rdvpanel'>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefive"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -101,7 +141,7 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id='medspanel'>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -296,8 +336,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                        <div class="small text-gray-500">Janvier 12, 2023</div>
+                                        <span class="font-weight-bold">3 RDV ce jour.</span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -307,8 +347,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
+                                        <div class="small text-gray-500">Janvier 02, 2023</div>
+                                        3 Medicaments out of stock.
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -318,8 +358,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
+                                        <div class="small text-gray-500">Janvier 27, 2023</div>
+                                        New Metting ce jour.
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
@@ -347,9 +387,8 @@ if(isset($_SESSION['user_id'])){
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                        <div class="text-truncate">Le fichier de patient mohammed fahed a été recus.</div>
+                                        <div class="small text-gray-500">Dr Chabali · 58m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -359,9 +398,8 @@ if(isset($_SESSION['user_id'])){
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                    <div class="text-truncate">Le patient est en attend.</div>
+                                        <div class="small text-gray-500">Reception · 8m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -371,9 +409,8 @@ if(isset($_SESSION['user_id'])){
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                    <div class="text-truncate">Le patient est en attend.</div>
+                                        <div class="small text-gray-500">Reception · 8m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -383,9 +420,8 @@ if(isset($_SESSION['user_id'])){
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                    <div class="text-truncate">Doliprane 500mg est en stock.</div>
+                                        <div class="small text-gray-500">Stock pharmacie · 18m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>

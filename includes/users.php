@@ -6,14 +6,24 @@ class Users{
   private $nom;
   private $prenom;
   private $mdp;
+  private $height;
+  private $CIN;
+  private $poids;
+  private $salaire;
   private $id;
+  private $role;
 
-  public  function __construct($email=null, $nom=null, $prenom=null, $mdp=null) {
+  public  function __construct($email=null, $nom=null, $prenom=null, $mdp=null,$salaire=null, $height=null, $poids=null, $CIN=null, $role=null) {
       $this->email = $email;
       $this->nom = $nom;
       $this->prenom = $prenom;
       $this->mdp = $mdp;
+      $this->CIN = $CIN;
+      $this->salaire = $salaire;
+      $this->height = $height;
+      $this->poids = $poids;
   }
+  
   public function setEmail($email) {
     $this->email = $email;
  }
@@ -106,14 +116,29 @@ class Users{
       }
      
     }
-    public function edit($pdo = null, $data){
-        
+    public function edit_patient($pdo = null, $id,$email,$nom,$prenom,$poids,$taille,$cin,$salaire=0){
+      $sql = "update  users set nom ='$nom' , prenom ='$prenom' ,email ='$email',poids=$poids,height=$taille,CIN='$cin',salaire=$salaire where id = $id";
+		  $result = $pdo->prepare($sql); 
+		  $result->execute(); 
+		  return $result; 
+    }
+    public function edit_user($pdo = null, $id,$email,$nom,$prenom,$poids,$taille,$cin,$salaire=0,$role='patient'){
+      $sql = "update  users set nom ='$nom' , prenom ='$prenom' ,email ='$email',poids=$poids,height=$taille,CIN='$cin',salaire=$salaire,role='$role' where id = $id";
+		  $result = $pdo->prepare($sql);       
+		  $result->execute(); 
+		  return $result; 
     }
     public function delete($pdo = null, $id){
-        $sql = "DELETE from users where id = $id";
-		$result = $pdo->prepare($sql); 
-		$result->execute(); 
-		return $result; 
+      $sql = "DELETE from users where id = $id";
+		  $result = $pdo->prepare($sql); 
+		  $result->execute(); 
+		  return $result; 
     }
+    public function getAllofRole($pdo = null,$role){
+      $sql = "SELECT * from users where role ='$role'";
+      $result = $pdo->prepare($sql); 
+      $result->execute();  
+      return $result; 
+      }
 }
 ?>

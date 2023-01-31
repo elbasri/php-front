@@ -1,3 +1,56 @@
+<!--some PHP SHIT  30/01/2023 by aboubaker -->
+<?php   
+require 'config/db.php';
+require 'includes/users.php';
+require 'includes/functions.php';
+
+if(isset($_SESSION['user_id_target'])){
+    $Users_targett = $_SESSION['user_id_target'];
+    $Users_target = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$Users_targett);
+    $Users_target = (object) $Users_target;
+    //var_dump($Users_target->height);
+    //exit;
+    
+
+
+} else {
+    header("Location: login.php");
+    exit;
+}
+
+
+if(isset($_SESSION['user_id'])){
+    $User = $_SESSION['user_id'];
+    $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
+    $user = (object) $user;
+
+    
+
+
+} else {
+    header("Location: login.php");
+    exit;
+}
+if(isset($_POST['submit'])){
+    update_user();
+}
+
+
+if($user->role=='patient')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+    echo '<style>#medspanel { display: none; }</style>';
+    echo '<style>#patientpanel { display: none; }</style>';
+}
+else if($user->role=='docteur')
+{
+    echo '<style>#docteurpanel { display: none; }</style>';
+    echo '<style>#userpanel { display: none; }</style>';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,16 +62,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Border Utilities</title>
+    <title>VitalCare-Website</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -30,117 +86,111 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
+        <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">VitalCare <sup>2</sup></div>
             </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        
+            <li class="nav-item active">
                 <a class="nav-link" href="index.php">
+                    <div class="sidebar-heading">
+                        Accueil
+                    </div>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        Services
+                    </div>
+            <li class="nav-item" id="patientpanel" >
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThre"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Patients</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseThre" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Gestion</h6>
+                        <a class="collapse-item" href="listpatients.php">Liste des patients</a>
+                        <a class="collapse-item" href="gestionpatients.php">Gestion des patients</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item active" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
+        </li>
+        <li class="nav-item" id="docteurpanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Docteurs</span>
+            </a>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listdocteurs.php">Liste des Docteurs</a>
+                    <a class="collapse-item" href="gestiondocteurs.php">Gestion des Docteurs</a>
                 </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
+        </li>
+        <li class="nav-item" id="userpanel" >
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThr"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Utilisateurs</span>
+            </a>
+            <div id="collapseThr" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listusers.php">Liste des users</a>
+                    <a class="collapse-item" href="gestionusers.php">Gestion des users</a>
                 </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
+            </div>
+        </li>
+        <li class="nav-item" id="rdvpanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefive"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>RDV</span>
+            </a>
+            <div id="collapsefive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listpatients.php">Liste des Rendez-vous</a>
+                    <a class="collapse-item" href="cards.html">Gestion des RDV</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item" id="medspanel">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Médicaments</span>
+            </a>
+            <div id="collapsefour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion</h6>
+                    <a class="collapse-item" href="listpatients.php">Liste des Médicaments</a>
+                    <a class="collapse-item" href="cards.html">Gestion des Médicaments</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider">
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        
+
+        
 
         </ul>
         <!-- End of Sidebar -->
@@ -155,9 +205,11 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
 
                     <!-- Topbar Search -->
                     <form
@@ -323,7 +375,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$user->nom?> <?=$user->prenom?> </span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -359,109 +411,70 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Border Utilities</h1>
-                    <p class="mb-4">Bootstrap's default utility classes can be found on the official <a
-                            href="https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities
-                        below were created to extend this theme past the default utility classes built into Bootstrap's
-                        framework.</p>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Border Left Utilities -->
-                        <div class="col-lg-6">
-
-                            <div class="card mb-4 py-3 border-left-primary">
-                                <div class="card-body">
-                                    .border-left-primary
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-secondary">
-                                <div class="card-body">
-                                    .border-left-secondary
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-success">
-                                <div class="card-body">
-                                    .border-left-success
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-info">
-                                <div class="card-body">
-                                    .border-left-info
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-warning">
-                                <div class="card-body">
-                                    .border-left-warning
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-danger">
-                                <div class="card-body">
-                                    .border-left-danger
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-left-dark">
-                                <div class="card-body">
-                                    .border-left-dark
-                                </div>
-                            </div>
-
+                    
+                  
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Modifier les donnes d'un Utilisateur</h6>
                         </div>
+                        <div class="card-body">
+                        <form class="user"  method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" name="prenom" class="form-control form-control-user" id="prenom"
+    placeholder="Prénom" value="<?=$Users_target->prenom?>">
 
-                        <!-- Border Bottom Utilities -->
-                        <div class="col-lg-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <input type="text" name="nom" class="form-control form-control-user" id="nom"
+    placeholder="Nom" value="<?=$Users_target->nom?>">
 
-                            <div class="card mb-4 py-3 border-bottom-primary">
-                                <div class="card-body">
-                                    .border-bottom-primary
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" name="email" class="form-control form-control-user" id="email"
+    placeholder="E-MAIL" value="<?=$Users_target->email?>">
 
-                            <div class="card mb-4 py-3 border-bottom-secondary">
-                                <div class="card-body">
-                                    .border-bottom-secondary
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <input type="text" name="cin" class="form-control form-control-user" id="cin"
+    placeholder="C.I.N" value="<?=$Users_target->CIN?>">
+
+                                    </div>
                                 </div>
-                            </div>
+                                
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="number" name="taille" class="form-control form-control-user" id="taille"
+    placeholder="Taille value" value="<?=$Users_target->height?>">
 
-                            <div class="card mb-4 py-3 border-bottom-success">
-                                <div class="card-body">
-                                    .border-bottom-success
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <input type="number" name="poids" class="form-control form-control-user" id="poids"
+    placeholder="Poids" value="<?=$Users_target->poids?>">
+
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="number" name="salaire" class="form-control form-control-user" id="salaire"
+    placeholder="Salaire" value="<?=$Users_target->salaire?>">
 
-                            <div class="card mb-4 py-3 border-bottom-info">
-                                <div class="card-body">
-                                    .border-bottom-info
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <input type="text" name="role" class="form-control form-control-user" id="role"
+    placeholder="Poids" value="<?=$Users_target->role?>">
+
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-bottom-warning">
-                                <div class="card-body">
-                                    .border-bottom-warning
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-bottom-danger">
-                                <div class="card-body">
-                                    .border-bottom-danger
-                                </div>
-                            </div>
-
-                            <div class="card mb-4 py-3 border-bottom-dark">
-                                <div class="card-body">
-                                    .border-bottom-dark
-                                </div>
-                            </div>
-
+                                <input  type="submit" style="width: 40%;margin-left: auto;margin-right: auto; margin-top:10px" name="submit" class="btn btn-primary btn-user btn-block" value="Valider les Modifications"> 
+                                          
+                                <hr>
+                                
+                            </form>
                         </div>
-
                     </div>
 
                 </div>
@@ -520,6 +533,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
