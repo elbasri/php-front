@@ -3,7 +3,7 @@ require 'config/db.php';
 require 'includes/users.php';
 require 'includes/functions.php';
 if(isset($_POST['submit'])){
-    logincheck();
+    logincheck(); 
 }
 
 ?>
