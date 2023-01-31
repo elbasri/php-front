@@ -44,49 +44,49 @@ if(isset($_POST['submit'])){
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Créer un compte!</h1>
                             </div>
                             <form class="user" action="register.php" method="post">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" name="prenom" class="form-control form-control-user" id="prenom"
-                                            placeholder="First Name">
+                                            placeholder="Prénom">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" name="nom" class="form-control form-control-user" id="nom"
-                                            placeholder="Last Name">
+                                            placeholder="Nom">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" class="form-control form-control-user" id="email"
-                                        placeholder="Email Address">
+                                        placeholder="Adresse e-mail">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" name="mdp" class="form-control form-control-user"
-                                            id="mdp" placeholder="Password">
+                                            id="mdp" placeholder="Mot de passe">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" name="mdptest" class="form-control form-control-user"
-                                            id="mdptest" placeholder="Repeat Password">
+                                            id="mdptest" placeholder="Retaper votre mot de passe">
                                     </div>
                                 </div>
-                                <input  type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Register Account"> 
+                                <input  type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Créer un compte"> 
                                           
                                 <hr>
                                 <a href="index.php" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                    <i class="fab fa-google fa-fw"></i> Créer avec Google
                                 </a>
                                 <a href="index.php" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                    <i class="fab fa-facebook-f fa-fw"></i> Créer avec Facebook
                                 </a>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="login.php">Vous avez déjà un compte? Connectez-vous!</a>
                             </div>
                         </div>
                     </div>

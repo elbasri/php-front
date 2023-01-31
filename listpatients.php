@@ -197,7 +197,7 @@ else if($user->role=='docteur')
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Recherche ..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -398,7 +398,7 @@ else if($user->role=='docteur')
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Table Patients</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Liste des Patients</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -407,7 +407,7 @@ else if($user->role=='docteur')
                                         <tr>
                                             <th>Id</th>
                                             <th>Nom</th>
-                                            <th>Prenom</th>
+                                            <th>Prénom</th>
                                             <th>Email</th>
                                             <th>CIN</th>
                                             <th>Poids</th>
@@ -420,7 +420,7 @@ else if($user->role=='docteur')
                                         <tr>
                                             <th>Id</th>
                                             <th>Nom</th>
-                                            <th>Prenom</th>
+                                            <th>Prénom</th>
                                             <th>Email</th>
                                             <th>CIN</th>
                                             <th>Poids</th>

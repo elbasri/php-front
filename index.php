@@ -83,7 +83,7 @@ else if($user->role=='docteur')
             <li class="nav-item active" >
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Tableau de bord</span></a>
             </li>
             <li class="nav-item" id='patientpanel'>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
@@ -278,7 +278,7 @@ else if($user->role=='docteur')
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Recherche ..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -327,7 +327,7 @@ else if($user->role=='docteur')
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Centre des alertes
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
@@ -348,7 +348,7 @@ else if($user->role=='docteur')
                                     </div>
                                     <div>
                                         <div class="small text-gray-500">Janvier 02, 2023</div>
-                                        3 Medicaments out of stock.
+                                        3 Medicaments en rupture de stock.
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -359,10 +359,10 @@ else if($user->role=='docteur')
                                     </div>
                                     <div>
                                         <div class="small text-gray-500">Janvier 27, 2023</div>
-                                        New Metting ce jour.
+                                        Nouveau meeting ce jour.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Afficher toutes les alertes</a>
                             </div>
                         </li>
 
@@ -378,7 +378,7 @@ else if($user->role=='docteur')
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
-                                    Message Center
+                                    Centre de message
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
@@ -387,7 +387,7 @@ else if($user->role=='docteur')
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">Le fichier de patient mohammed fahed a été recus.</div>
+                                        <div class="text-truncate">Le fichier de patient mohammed fahed a été reçu.</div>
                                         <div class="small text-gray-500">Dr Chabali · 58m</div>
                                     </div>
                                 </a>
@@ -398,7 +398,7 @@ else if($user->role=='docteur')
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
-                                    <div class="text-truncate">Le patient est en attend.</div>
+                                    <div class="text-truncate">Le patient est en attente.</div>
                                         <div class="small text-gray-500">Reception · 8m</div>
                                     </div>
                                 </a>
@@ -409,7 +409,7 @@ else if($user->role=='docteur')
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
-                                    <div class="text-truncate">Le patient est en attend.</div>
+                                    <div class="text-truncate">Le patient est en attente.</div>
                                         <div class="small text-gray-500">Reception · 8m</div>
                                     </div>
                                 </a>
@@ -424,7 +424,7 @@ else if($user->role=='docteur')
                                         <div class="small text-gray-500">Stock pharmacie · 18m</div>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Afficher tout les messages</a>
                             </div>
                         </li>
 
@@ -471,9 +471,9 @@ else if($user->role=='docteur')
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                                class="fas fa-download fa-sm text-white-50"></i> Générer un rapport</a>
                     </div>
 
                     <!-- Content Row -->
@@ -486,8 +486,8 @@ else if($user->role=='docteur')
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Gains(Mensuels)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">40,000 MAD</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -504,8 +504,8 @@ else if($user->role=='docteur')
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                                Gains(Annuel)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">215,000 MAD</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -521,7 +521,7 @@ else if($user->role=='docteur')
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tâches
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -551,7 +551,7 @@ else if($user->role=='docteur')
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
+                                                Rendez-vous en attente</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">
@@ -573,7 +573,7 @@ else if($user->role=='docteur')
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Aperçu des revenus</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -604,7 +604,7 @@ else if($user->role=='docteur')
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Sources de revenus</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -627,13 +627,13 @@ else if($user->role=='docteur')
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-primary"></i> Consultation
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
+                                            <i class="fas fa-circle text-success"></i> Médicament
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                            <i class="fas fa-circle text-info"></i> Autre
                                         </span>
                                     </div>
                                 </div>
