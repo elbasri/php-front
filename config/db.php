@@ -8,7 +8,6 @@ $pass = '';
 $charset = 'utf8mb4';
 
 
-$mongoconf = "mongodb://elbasri:kachaF123***@51.178.45.173:27011";
 
 $options = [
     \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
