@@ -15,7 +15,7 @@ if(isset($_SESSION['user_id'])){
     exit;
 }
 
-$Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=hms.physician&fields=%5B%22name%22%2C%22code%22%2C%22medical_license%22%2C%22mobile%22%2C%22email%22%5D&with_context=%7B%7D&with_company=1');
+$Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=product.template&domain=%5B%22List%20%5B%20%5C%22hospital_product_type%5C%22%2C%20%5C%22%3D%5C%22%2C%20%5C%22medicament%5C%22%5D%22%5D&with_context=%7B%7D&with_company=1');
 
 ?>
 
@@ -283,21 +283,19 @@ $Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=hms.physici
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Code</th>
-                                            <th>Nom de Medecin</th>
-                                            <th>Medical license</th>
-                                            <th>Telephone</th>
-                                            <th>Email</th>
+                                            <th>Nom de l'article</th>
+                                            <th>Référence interne</th>
+                                            <th>Quantité en stock</th>
+                                            <th>Prix</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php foreach($Users as $usert){ $usert = (array) $usert;?>
                                         <tr>
-                                            <td><?= isset($usert["code"]) ? $usert["code"] : '' ?></td>
                                             <td><?= isset($usert["name"]) ? $usert["name"] : '' ?></td>
-                                            <td><?= isset($usert["medical_license"]) ? $usert["medical_license"] : '' ?></td>
-                                            <td><?= isset($usert["mobile"]) ? $usert["mobile"] : '' ?></td>
-                                            <td><?= isset($usert["email"]) ? $usert["email"] : '' ?></td>
+                                            <td><?= isset($usert["default_code"]) ? $usert["default_code"] : '' ?></td>
+                                            <td><?= isset($usert["qty_available"]) ? $usert["qty_available"] : '' ?></td>
+                                            <td><?= isset($usert["list_price"]) ? $usert["list_price"] : '' ?></td>
                                         </tr>
                                     <?php } ?>
                                         
