@@ -15,20 +15,7 @@ if(isset($_SESSION['user_id'])){
     exit;
 }
 
-$Users =  listrdv('https://clinic.maktab.ma/api/v1/search_read?model=hms.appointment&with_context=%7B%7D&with_company=1', $user->role);
- 
-if($user->role=='patient')
-{
-    echo '<style>#docteurpanel { display: none; }</style>';
-    echo '<style>#userpanel { display: none; }</style>';
-    echo '<style>#medspanel { display: none; }</style>';
-    echo '<style>#patientpanel { display: none; }</style>';
-}
-else if($user->role=='docteur')
-{
-    echo '<style>#docteurpanel { display: none; }</style>';
-    echo '<style>#userpanel { display: none; }</style>';
-}
+$Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=hms.appointment&with_context=%7B%7D&with_company=1');
 
 ?>
 

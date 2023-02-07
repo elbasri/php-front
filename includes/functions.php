@@ -221,10 +221,10 @@ function authapi($user=null,$mdp=null)
     return json_decode($token);
 
 }
-function listrdv($url, $user_role)
+function listAPI($url)
 {
-  if( $user_role=='admin')
-  {
+  //if( $user_role=='admin')
+  //{
     $opts = [
         "http" => [
         "method" => "GET",
@@ -238,13 +238,25 @@ function listrdv($url, $user_role)
     $file = file_get_contents($url, false, $context);
     return json_decode($file) ;
 
-  }
+  /*}
   else
   {
+    $opts = [
+        "http" => [
+        "method" => "GET",
+        "header" => "accept: application/json\r\n" .
+        "Authorization: Basic YWRtaW46c2VjcmV0MzIxMTA=\r\n"
+        ]
+    ];
     
-  }
-  return false;
+    $context = stream_context_create($opts);
+    
+    $file = file_get_contents($url, false, $context);
+    return json_decode($file) ;
+  }*/
+  //return false;
 }
+
 function access($page, $role){
     if($role!='admin' && !in_array($page, array("mesrdv.php", "profile.php", "settings.php"))){
         header("Location: mesrdv.php");

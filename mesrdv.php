@@ -15,20 +15,7 @@ if(isset($_SESSION['user_id'])){
     exit;
 }
 
-$Users =  listrdv('https://clinic.maktab.ma/api/v1/search_read?model=hms.appointment&with_context=%7B%7D&with_company=1', $user->role);
- 
-if($user->role=='patient')
-{
-    echo '<style>#docteurpanel { display: none; }</style>';
-    echo '<style>#userpanel { display: none; }</style>';
-    echo '<style>#medspanel { display: none; }</style>';
-    echo '<style>#patientpanel { display: none; }</style>';
-}
-else if($user->role=='docteur')
-{
-    echo '<style>#docteurpanel { display: none; }</style>';
-    echo '<style>#userpanel { display: none; }</style>';
-}
+$Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=hms.appointment&domain=%5B%22List%20%5B%20%5C%22id%5C%22%2C%20%5C%22%3D%5C%22%2C%20'.$user->id.'%5D%22%5D&with_context=%7B%7D&with_company=1');
 
 ?>
 
@@ -297,7 +284,6 @@ else if($user->role=='docteur')
                                     <thead>
                                         <tr>
                                             <th>RDV Ref</th>
-                                            <th>Nom de patient</th>
                                             <th>Nom de physician</th>
                                             <th>Date</th>
                                             <th>Departement concerner</th>
@@ -308,23 +294,10 @@ else if($user->role=='docteur')
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>RDV Ref</th>
-                                            <th>Nom de patient</th>
-                                            <th>Nom de physician</th>
-                                            <th>Date</th>
-                                            <th>Departement concerner</th>
-                                            <th>Type Consultation</th>
-                                            <th>Statut</th>
-                                            <th>But Consultation</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php foreach($Users as $usert){ $usert = (array) $usert;?>
                                         <tr>
                                             <td><?= isset($usert["display_name"]) ? $usert["display_name"] : '' ?></td>
-                                            <td><?= isset($usert["write_uid"][1]) ? $usert["write_uid"][1] : '' ?></td>
                                             <td><?= isset($usert["physician_id"][1]) ? $usert["physician_id"][1] : '' ?></td>
                                             <td><?= isset($usert["create_date"]) ? $usert["create_date"] : '' ?></td>
                                             <td><?= isset($usert["department_id"][1]) ? $usert["department_id"][1] : '' ?></td>

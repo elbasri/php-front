@@ -3,18 +3,20 @@
 require 'config/db.php';
 require 'includes/users.php';
 require 'includes/functions.php';
-$Users = (new App\Classes\Users())->getAllofRole($pdo,"docteur");
 
 if(isset($_SESSION['user_id'])){
     $User = $_SESSION['user_id'];
     $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
     $user = (object) $user;
     access($p, $user->role);
+
 } else {
     header("Location: login.php");
     exit;
 }
- 
+
+$Users =  listAPI('https://clinic.maktab.ma/api/v1/search_read?model=hms.physician&fields=%5B%22name%22%2C%22code%22%2C%22medical_license%22%2C%22mobile%22%2C%22email%22%5D&with_context=%7B%7D&with_company=1');
+
 ?>
 
 <!DOCTYPE html>
@@ -274,49 +276,29 @@ if(isset($_SESSION['user_id'])){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Table Docteurs</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Médecins</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
+                                            <th>Code</th>
+                                            <th>Nom de Medecin</th>
+                                            <th>Medical license</th>
+                                            <th>Telephone</th>
                                             <th>Email</th>
-                                            <th>CIN</th>
-                                            <th>Poids</th>
-                                            <th>Taille</th>
-                                            <th>Salaire</th>
-                                            
-                                            
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Email</th>
-                                            <th>CIN</th>
-                                            <th>Poids</th>
-                                            <th>Taille</th>
-                                            <th>Salaire</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                    <?php foreach($Users as $user){ ?>
+                                    <?php foreach($Users as $usert){ $usert = (array) $usert;?>
                                         <tr>
-                                            <td><?=$user["id"]?></td>
-                                            <td><?=$user["nom"]?></td>
-                                            <td><?=$user["prenom"]?></td>
-                                            <td><?=$user["email"]?></td>
-                                            <td><?=$user["CIN"]?></td>
-                                            <td><?=$user["poids"]?></td>
-                                            <td><?=$user["height"]?></td>
-                                            <td><?=$user["salaire"]?></td>
-                                            </tr>
+                                            <td><?= isset($usert["code"][1]) ? $usert["code"] : '' ?></td>
+                                            <td><?= isset($usert["name"]) ? $usert["name"] : '' ?></td>
+                                            <td><?= isset($usert["medical_license"]) ? $usert["medical_license"] : '' ?></td>
+                                            <td><?= isset($usert["mobile"]) ? $usert["mobile"] : '' ?></td>
+                                            <td><?= isset($usert["email"]) ? $usert["email"] : '' ?></td>
+                                        </tr>
                                     <?php } ?>
                                         
                                             
