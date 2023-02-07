@@ -14,6 +14,7 @@ if(isset($_SESSION['user_id'])){
     $User = $_SESSION['user_id'];
     $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
     $user = (object) $user;
+    access($p, $user->role);
     //exit;
     
     if(isset($_POST['submit'])){
@@ -76,7 +77,7 @@ else if($user->role=='docteur')
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include("includes/parts/sidemenu.php")?>
+        <?php $role = $user->role; include("includes/parts/sidemenu.php")?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

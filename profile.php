@@ -28,7 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include("includes/parts/sidemenu.php")?>
+        <?php $role = $user->role; include("includes/parts/sidemenu.php")?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

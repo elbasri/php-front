@@ -2,17 +2,14 @@
 <?php   
 require 'config/db.php';
 require 'includes/users.php';
+require 'includes/functions.php';
 $Users = (new App\Classes\Users())->getAll($pdo,"docteur");
 
 if(isset($_SESSION['user_id'])){
     $User = $_SESSION['user_id'];
     $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
     $user = (object) $user;
-
-    if(!access()){
-        header("Location: login.php");
-        exit;
-    }
+    access($p, $user->role);
 
 } else {
     header("Location: login.php");
@@ -67,7 +64,7 @@ else if($user->role=='docteur')
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include("includes/parts/sidemenu.php")?>
+        <?php $role = $user->role; include("includes/parts/sidemenu.php")?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

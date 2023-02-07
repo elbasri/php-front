@@ -4,33 +4,29 @@ require 'config/db.php';
 require 'includes/users.php';
 require 'includes/functions.php';
 
-if(isset($_SESSION['user_id_target'])){
-    $Users_targett = $_SESSION['user_id_target'];
-    $Users_target = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$Users_targett);
-    $Users_target = (object) $Users_target;
-    //var_dump($Users_target->height);
-    //exit;
-    
-
-
-} else {
-    header("Location: login.php");
-    exit;
-}
-
-
 if(isset($_SESSION['user_id'])){
     $User = $_SESSION['user_id'];
     $user = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$User);
     $user = (object) $user;
-
-    
-
+    access($p, $user->role);
 
 } else {
     header("Location: login.php");
     exit;
 }
+
+if(isset($_SESSION['user_id_target'])){
+    $Users_targett = $_SESSION['user_id_target'];
+    $Users_target = (new App\Classes\Users())->getOne($GLOBALS['pdo'],$Users_targett);
+    $Users_target = (object) $Users_target;
+    
+
+} else {
+    header("Location: login.php");
+    exit;
+}
+
+
 if(isset($_POST['submit'])){
     update_docteur();
 }

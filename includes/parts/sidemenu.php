@@ -11,10 +11,7 @@
 
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
-
-<!-- Nav Item - Dashboard -->
-
-    <li class="nav-item active">
+<li class="nav-item active">
         <a class="nav-link" href="index.php">
             <div class="sidebar-heading">
                 Accueil
@@ -23,6 +20,8 @@
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
+<!-- Nav Item - Dashboard -->
+<?php if(isset($role) && $role== "admin") { ?>
     <div class="sidebar-heading">
                 Services
             </div>
@@ -39,16 +38,16 @@
                 <a class="collapse-item" href="creerpatient.php">Ajouter</a>
             </div>
         </div>
-</li>
+    </li>
 <li class="nav-item" id="rdvpanel">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefive"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
-        <span>RDV</span>
+        <span>Planification</span>
     </a>
     <div id="collapsefive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Gestion</h6>
+            <h6 class="collapse-header">Liste</h6>
             <a class="collapse-item" href="listrdvs.php">Rendez-vous</a>
         </div>
     </div>
@@ -82,14 +81,30 @@
         </div>
     </div>
 </li>
+
+<!-- Nav Item - Pages Collapse Menu -->
+<?php } else { ?>
+    <div class="sidebar-heading">
+                Suivi
+            </div>
+    <li class="nav-item" id="patientpanel" >
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThre"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Rendez-vous</span>
+        </a>
+        <div id="collapseThre" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Liste</h6>
+                <a class="collapse-item" href="mesrdv.php">Mes RDV</a>
+                <a class="collapse-item" href="#">Ajouter</a>
+            </div>
+        </div>
+    </li>  
+<?php } ?>
+
 <hr class="sidebar-divider">
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
-<!-- Nav Item - Pages Collapse Menu -->
-
-
-
-
 </ul>

@@ -2,6 +2,7 @@
 <?php   
 require 'config/db.php';
 require 'includes/users.php';
+require 'includes/functions.php';
 $Users = (new App\Classes\Users())->getAllofRole($pdo,"docteur");
 
 if(isset($_SESSION['user_id'])){
@@ -51,7 +52,7 @@ if(isset($_SESSION['user_id'])){
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include("includes/parts/sidemenu.php")?>
+        <?php $role = $user->role; include("includes/parts/sidemenu.php")?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
