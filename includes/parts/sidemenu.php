@@ -63,7 +63,6 @@
             <h6 class="collapse-header">(VIA REST API)</h6>
             <a class="collapse-item" href="listdocteurs.php">Docteurs</a>
             <a class="collapse-item" href="listmedicament.php">Médicaments</a>
-            <a class="collapse-item" href="mdicaments.php">...</a>
         </div>
     </div>
 </li>
