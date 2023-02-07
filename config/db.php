@@ -27,4 +27,5 @@ if(isset($_SERVER['SERVER_NAME']))
 	$baseurl = "https://".$_SERVER['SERVER_NAME']."/";
 else
 	$baseurl = "http://localhost/";
+$p = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 ?>

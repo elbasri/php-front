@@ -78,17 +78,9 @@ if(isset($_POST['submit'])){
                                         <input  type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Se connecter"> 
                                             
                                         
-                                        <hr>
-                                        <a href="index.php" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Se connecter avec Google
-                                        </a>
-                                        <a href="index.php" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Se connecter avec Facebook
-                                        </a>
-                                    
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Mot de passe oublié</a>
+                                    <a class="small" href="#" onclick="alert('Fonctionalite encours de developpement')">Mot de passe oublié ?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="register.php">Créer un compte</a>

@@ -79,6 +79,48 @@ function Register()
     }
 }
 
+function Creer()
+{
+    
+    if (isset($_POST['email']) && isset($_POST['mdp'])&& isset($_POST['nom'])&& isset($_POST['prenom'])&& isset($_POST['mdptest']))
+    {
+        $email = $_POST['email'];
+        $mdp = $_POST['mdp'];        
+        $mdptest =$_POST['mdptest'];
+        $nom=$_POST['nom'] ;
+        $prenom= $_POST['prenom'];
+        
+        
+        
+        if($mdp==$mdptest)
+        {
+            $user = new App\Classes\Users($email, $nom, $prenom, $mdp);
+            
+            
+            //$testreturn = $user->insert($GLOBALS['pdo']);
+            if($user->insert($GLOBALS['pdo']))
+            {
+                //session_start();           
+                //$_SESSION['user_id'] = $user->getId();
+                header('Location: gestionpatients.php');
+                exit;
+
+            }
+            else
+            {
+                header('Location: register.php');
+                exit;
+
+            }
+           
+        }else{
+            echo 'NOT SIMILAIRE MDP';
+        }
+    }
+    else{
+        echo 'ALL DATE IS REQUIRED ARE REQUIRED';
+    }
+}
 function update()
 {
     
@@ -179,9 +221,9 @@ function authapi($user=null,$mdp=null)
     return json_decode($token);
 
 }
-function listrdv($url)
+function listrdv($url, $user_role)
 {
-  if( $_SESSION['user_role']=='admin')
+  if( $user_role=='admin')
   {
     $opts = [
         "http" => [
@@ -203,7 +245,12 @@ function listrdv($url)
   }
   return false;
 }
-
+function access($page, $role){
+    if($role!='admin' && !in_array($page, array("mesrdv.php", "profile.php", "settings.php"))){
+        header("Location: mesrdv.php");
+        exit;
+    }
+}
 
 
 
