@@ -4,7 +4,7 @@ TACHES
 
 ## First
 
-[![PHP-FRONT Preview](/img/prj.png)
+![PHP-FRONT Preview](/img/prj.png)
 
 **[Launch Live Preview](https://php-front.nacer.ma/)**
 
