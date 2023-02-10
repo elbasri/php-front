@@ -225,11 +225,12 @@ function listAPI($url)
 {
   //if( $user_role=='admin')
   //{
+    $token =  $_SESSION['token'];
     $opts = [
         "http" => [
         "method" => "GET",
         "header" => "accept: application/json\r\n" .
-        "Authorization: Basic YWRtaW46c2VjcmV0MzIxMTA=\r\n"
+        "Authorization: Basic  $token\r\n"
         ]
     ];
     
